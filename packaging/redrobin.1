@@ -1,0 +1,216 @@
+.TH REDROBIN 1 "September 2026" "Red Robin 0.1.0" "User Commands"
+
+.SH NAME
+redrobin \- configurable network connectivity and diagnostics tester
+
+.SH SYNOPSIS
+.B redrobin
+.RB [ \-c " FILE" ]
+.RB [ \-v ]
+.RB [ \-q ]
+.RB [ \-j ]
+.RB [ \-V ]
+.br
+.B redrobin
+.B \-\-help
+
+.SH DESCRIPTION
+.B Red Robin
+is a configurable command-line network connectivity and diagnostics
+tester for Linux.
+
+It can test multiple network connection methods and present the results
+in a human-readable three-column display.
+
+The default display contains:
+
+.IP \(bu 2
+the location or connection target,
+.IP \(bu 2
+a friendly connection rating,
+.IP \(bu 2
+technical connection statistics.
+
+The friendly ratings are:
+
+.TP
+.B YUM
+The connection is performing within the configured healthy range.
+
+.TP
+.B MEH
+The connection works but is outside the preferred latency range.
+
+.TP
+.B YUCK
+The connection failed or exceeded the configured poor-performance
+threshold.
+
+The rating is intended as a quick human-readable summary.
+The technical statistics remain the authoritative diagnostic information.
+
+.SH OPTIONS
+
+.TP
+.BR \-c ", " \-\-config " FILE"
+Use a specific YAML configuration file.
+
+.TP
+.BR \-v ", " \-\-verbose
+Show additional information about individual tests.
+
+.TP
+.BR \-q ", " \-\-quiet
+Show only failed tests.
+
+.TP
+.BR \-j ", " \-\-json
+Output results as JSON.
+
+.TP
+.BR \-V ", " \-\-version
+Display the Red Robin version.
+
+.TP
+.BR \-h ", " \-\-help
+Display command-line help.
+
+.SH CONFIGURATION
+
+When no configuration file is supplied, Red Robin checks:
+
+.nf
+~/.config/redrobin/config.yml
+.fi
+
+If that file does not exist, Red Robin uses its built-in default
+configuration.
+
+The configuration file uses YAML.
+
+Example:
+
+.nf
+settings:
+  timeout_seconds: 3
+  retries: 2
+  parallel: true
+
+tests:
+  - name: "Cloudflare DNS"
+    type: "icmp"
+    target: "1.1.1.1"
+.fi
+
+.SH TEST TYPES
+
+Red Robin supports or is designed to support the following test types:
+
+.IP \(bu 2
+.B icmp
+.IP \(bu 2
+.B tcp
+.IP \(bu 2
+.B udp
+.IP \(bu 2
+.B dns
+.IP \(bu 2
+.B http
+.IP \(bu 2
+.B https
+.IP \(bu 2
+.B tls
+.IP \(bu 2
+.B tor
+.IP \(bu 2
+.B onion
+.IP \(bu 2
+.B i2p
+
+Individual test types may require a local service, appropriate network
+access, or additional system configuration.
+
+.SH EXAMPLES
+
+Test using the default configuration:
+
+.nf
+redrobin
+.fi
+
+Use a custom configuration:
+
+.nf
+redrobin --config ~/my-redrobin.yml
+.fi
+
+Show verbose information:
+
+.nf
+redrobin --verbose
+.fi
+
+Output JSON:
+
+.nf
+redrobin --json
+.fi
+
+Show command help:
+
+.nf
+redrobin --help
+.fi
+
+.SH FILES
+
+.TP
+.I ~/.config/redrobin/config.yml
+Per-user Red Robin configuration.
+
+.TP
+.I /usr/share/man/man1/redrobin.1
+System manual page when installed system-wide.
+
+.SH EXIT STATUS
+
+.TP
+.B 0
+All configured tests completed successfully.
+
+.TP
+.B 1
+At least one configured test failed.
+
+.TP
+.B other
+The program could not start or encountered a fatal configuration or
+runtime error.
+
+.SH NOTES
+
+ICMP tests normally require the
+.B ping
+program to be installed.
+
+Some systems restrict ICMP access for unprivileged applications.
+A failed ICMP test therefore does not necessarily indicate that the
+entire Internet connection is unavailable.
+
+UDP services may intentionally ignore unsolicited packets. A failed
+generic UDP test should therefore be interpreted together with its
+technical statistics.
+
+.SH SEE ALSO
+
+.BR ping (8),
+.BR ip (8)
+
+.SH AUTHOR
+
+Red Robin Contributors
+
+.SH LICENSE
+
+Red Robin is released under the GNU General Public License, version 3
+or later.
