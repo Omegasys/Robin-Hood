@@ -1,0 +1,166 @@
+# Red Robin comprehensive configuration
+#
+# This configuration enables a broad collection of connectivity tests.
+#
+# Some tests depend on services running locally or on remote services
+# accepting the selected protocol.
+#
+# UDP tests may fail when a destination intentionally ignores unsolicited
+# UDP traffic. A failure does not necessarily indicate broken Internet
+# connectivity.
+
+settings:
+  timeout_seconds: 5
+  retries: 3
+  parallel: true
+  show_statistics: true
+  show_failed_tests: true
+
+  rating:
+    yum_max_latency_ms: 100
+    meh_max_latency_ms: 500
+
+tests:
+
+  # ------------------------------------------------------------
+  # ICMP
+  # ------------------------------------------------------------
+
+  - name: "Google DNS"
+    type: "icmp"
+    target: "8.8.8.8"
+
+  - name: "Cloudflare DNS"
+    type: "icmp"
+    target: "1.1.1.1"
+
+  - name: "Cloudflare DNS Secondary"
+    type: "icmp"
+    target: "1.0.0.1"
+
+  - name: "Quad9 DNS"
+    type: "icmp"
+    target: "9.9.9.9"
+
+  - name: "OpenDNS"
+    type: "icmp"
+    target: "208.67.222.222"
+
+  # ------------------------------------------------------------
+  # DNS
+  # ------------------------------------------------------------
+
+  - name: "Google DNS Resolution"
+    type: "dns"
+    server: "8.8.8.8"
+    domain: "example.com"
+
+  - name: "Cloudflare DNS Resolution"
+    type: "dns"
+    server: "1.1.1.1"
+    domain: "example.com"
+
+  - name: "Quad9 DNS Resolution"
+    type: "dns"
+    server: "9.9.9.9"
+    domain: "example.com"
+
+  - name: "OpenDNS Resolution"
+    type: "dns"
+    server: "208.67.222.222"
+    domain: "example.com"
+
+  # ------------------------------------------------------------
+  # TCP
+  # ------------------------------------------------------------
+
+  - name: "Cloudflare TCP 443"
+    type: "tcp"
+    address: "1.1.1.1"
+    port: 443
+
+  - name: "Google TCP 443"
+    type: "tcp"
+    address: "8.8.8.8"
+    port: 443
+
+  # ------------------------------------------------------------
+  # HTTPS
+  # ------------------------------------------------------------
+
+  - name: "Google HTTPS"
+    type: "https"
+    url: "https://www.google.com"
+
+  - name: "Cloudflare HTTPS"
+    type: "https"
+    url: "https://www.cloudflare.com"
+
+  - name: "Example HTTPS"
+    type: "https"
+    url: "https://example.com"
+
+  # ------------------------------------------------------------
+  # HTTP
+  # ------------------------------------------------------------
+
+  - name: "Example HTTP"
+    type: "http"
+    url: "http://example.com"
+
+  # ------------------------------------------------------------
+  # TLS
+  # ------------------------------------------------------------
+
+  - name: "Cloudflare TLS"
+    type: "tls"
+    url: "https://www.cloudflare.com"
+
+  - name: "Google TLS"
+    type: "tls"
+    url: "https://www.google.com"
+
+  # ------------------------------------------------------------
+  # Tor
+  # ------------------------------------------------------------
+
+  - name: "Tor SOCKS"
+    type: "tor"
+    address: "127.0.0.1"
+    port: 9050
+
+  # ------------------------------------------------------------
+  # I2P
+  # ------------------------------------------------------------
+
+  - name: "I2P Router"
+    type: "i2p"
+    address: "127.0.0.1"
+    port: 7657
+
+  # ------------------------------------------------------------
+  # UDP
+  # ------------------------------------------------------------
+  #
+  # These are examples only. Many public UDP services will not answer
+  # arbitrary probes.
+
+  - name: "Example UDP"
+    type: "udp"
+    address: "1.1.1.1"
+    port: 53
+
+  # ------------------------------------------------------------
+  # Onion service
+  # ------------------------------------------------------------
+  #
+  # Replace the URL below with an onion service you intentionally want
+  # to test.
+  #
+  # Example:
+  #
+  #   - name: "My Onion Service"
+  #     type: "onion"
+  #     url: "http://YOUR-ONION-ADDRESS.onion/"
+  #     address: "127.0.0.1"
+  #     port: 9050
