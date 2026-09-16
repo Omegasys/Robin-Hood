@@ -1,0 +1,14 @@
+version = 4
+
+[[package]]
+name = "red-robin"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "reqwest",
+ "serde",
+ "serde_yaml",
+ "thiserror",
+ "tokio",
+]
