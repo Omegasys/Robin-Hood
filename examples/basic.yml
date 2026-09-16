@@ -1,0 +1,45 @@
+# Red Robin basic configuration
+#
+# A small collection of common Internet connectivity tests.
+
+settings:
+  timeout_seconds: 3
+  retries: 2
+  parallel: true
+  show_statistics: true
+  show_failed_tests: true
+
+  rating:
+    yum_max_latency_ms: 100
+    meh_max_latency_ms: 500
+
+tests:
+  - name: "Cloudflare DNS"
+    type: "icmp"
+    target: "1.1.1.1"
+
+  - name: "Google DNS"
+    type: "icmp"
+    target: "8.8.8.8"
+
+  - name: "Quad9 DNS"
+    type: "icmp"
+    target: "9.9.9.9"
+
+  - name: "Cloudflare DNS Resolution"
+    type: "dns"
+    server: "1.1.1.1"
+    domain: "example.com"
+
+  - name: "Google DNS Resolution"
+    type: "dns"
+    server: "8.8.8.8"
+    domain: "example.com"
+
+  - name: "Cloudflare HTTPS"
+    type: "https"
+    url: "https://www.cloudflare.com"
+
+  - name: "Google HTTPS"
+    type: "https"
+    url: "https://www.google.com"
