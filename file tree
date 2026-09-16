@@ -1,0 +1,58 @@
+red-robin/
+├── README.md
+├── Cargo.toml
+├── Cargo.lock
+│
+├── config/
+│   └── redrobin.example.yml
+│
+├── src/
+│   ├── main.rs
+│   ├── cli.rs
+│   ├── config.rs
+│   ├── runner.rs
+│   ├── result.rs
+│   ├── ratings.rs
+│   ├── output.rs
+│   ├── statistics.rs
+│   │
+│   ├── tests/
+│   │   ├── mod.rs
+│   │   ├── icmp.rs
+│   │   ├── tcp.rs
+│   │   ├── udp.rs
+│   │   ├── dns.rs
+│   │   ├── http.rs
+│   │   ├── https.rs
+│   │   ├── tls.rs
+│   │   ├── tor.rs
+│   │   ├── onion.rs
+│   │   └── i2p.rs
+│   │
+│   ├── network/
+│   │   ├── mod.rs
+│   │   ├── interface.rs
+│   │   ├── gateway.rs
+│   │   ├── resolver.rs
+│   │   └── reachability.rs
+│   │
+│   └── system/
+│       ├── mod.rs
+│       ├── platform.rs
+│       └── dependencies.rs
+│
+├── tests/
+│   ├── config_tests.rs
+│   ├── rating_tests.rs
+│   ├── statistics_tests.rs
+│   └── cli_tests.rs
+│
+├── packaging/
+│   ├── redrobin.1
+│   ├── redrobin.desktop
+│   └── install.sh
+│
+└── examples/
+    ├── basic.yml
+    ├── privacy.yml
+    └── comprehensive.yml
