@@ -1,0 +1,88 @@
+# Red Robin configuration
+#
+# Copy this file to:
+#
+# ~/.config/redrobin/config.yml
+#
+# Then customize the tests to your needs.
+
+settings:
+  timeout_seconds: 3
+  retries: 2
+  parallel: true
+  show_statistics: true
+  show_failed_tests: true
+
+  # Friendly result levels:
+  #
+  # YUM  = healthy connection
+  # MEH  = connection works but has degraded performance
+  # YUCK = failed or severely degraded connection
+  #
+  rating:
+    yum_max_latency_ms: 100
+    meh_max_latency_ms: 500
+
+tests:
+
+  # Basic IP connectivity
+
+  - name: "Google DNS"
+    type: "icmp"
+    target: "8.8.8.8"
+
+  - name: "Cloudflare DNS"
+    type: "icmp"
+    target: "1.1.1.1"
+
+  - name: "Cloudflare DNS Secondary"
+    type: "icmp"
+    target: "1.0.0.1"
+
+  - name: "Quad9 DNS"
+    type: "icmp"
+    target: "9.9.9.9"
+
+  - name: "OpenDNS"
+    type: "icmp"
+    target: "208.67.222.222"
+
+  # DNS tests
+
+  - name: "Google DNS Resolution"
+    type: "dns"
+    server: "8.8.8.8"
+    domain: "example.com"
+
+  - name: "Cloudflare DNS Resolution"
+    type: "dns"
+    server: "1.1.1.1"
+    domain: "example.com"
+
+  # HTTPS tests
+
+  - name: "Google HTTPS"
+    type: "https"
+    url: "https://www.google.com"
+
+  - name: "Cloudflare HTTPS"
+    type: "https"
+    url: "https://www.cloudflare.com"
+
+  # Tor test.
+  #
+  # These tests expect a local Tor SOCKS proxy.
+
+  - name: "Tor SOCKS"
+    type: "tor"
+    address: "127.0.0.1"
+    port: 9050
+
+  # I2P test.
+  #
+  # These tests expect a local I2P router/proxy.
+
+  - name: "I2P Router"
+    type: "i2p"
+    address: "127.0.0.1"
+    port: 7657
