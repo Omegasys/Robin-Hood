@@ -1,0 +1,45 @@
+# Red Robin privacy-oriented configuration
+#
+# This configuration concentrates on connectivity paths commonly used
+# with privacy-oriented networking.
+#
+# Tor requires a local SOCKS5 service, normally on 127.0.0.1:9050.
+#
+# I2P configuration varies by installation. The example below checks
+# the local I2P router console on port 7657.
+
+settings:
+  timeout_seconds: 10
+  retries: 2
+  parallel: false
+  show_statistics: true
+  show_failed_tests: true
+
+  rating:
+    yum_max_latency_ms: 250
+    meh_max_latency_ms: 1000
+
+tests:
+  - name: "Direct Cloudflare DNS"
+    type: "dns"
+    server: "1.1.1.1"
+    domain: "example.com"
+
+  - name: "Direct Google DNS"
+    type: "dns"
+    server: "8.8.8.8"
+    domain: "example.com"
+
+  - name: "Direct HTTPS"
+    type: "https"
+    url: "https://example.com"
+
+  - name: "Tor SOCKS"
+    type: "tor"
+    address: "127.0.0.1"
+    port: 9050
+
+  - name: "I2P Router"
+    type: "i2p"
+    address: "127.0.0.1"
+    port: 7657
