@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Red Robin
+GenericName=Network Diagnostics
+Comment=Configurable network connectivity and diagnostics tester
+Exec=redrobin
+Terminal=true
+Categories=Network;Utility;System;
+Keywords=network;diagnostics;ping;DNS;Tor;I2P;connectivity;
